@@ -21,7 +21,10 @@
         <div class="form-group">{{ form.password2.label_tag }}{{ form.password2 }}</div>
         <button type="submit" class="btn-primary">Sign Up</button>
       </form>
-      <a href="{% url 'login' %}">Already have an account? Log In</a>
+      <form action="{% url 'login' %}" method="post" class="login-link-form">
+      {% csrf_token %}
+      <button type="submit" class="login-link-button">Already have an account? Log In</button>
+      </form>
     </div>
   </main>
   <footer class="footer">

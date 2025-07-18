@@ -62,6 +62,23 @@ input {
   cursor: pointer;
 }
 
+.login-link-form {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.login-link-button {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+
+}
+
 .footer {
     background-color: #111827;
     color: #ffffff;
