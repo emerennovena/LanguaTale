@@ -24,9 +24,11 @@ def signup(request):
             user = form.save()
             login(request, user)
             return redirect('home')
+        else:
+            return render(request, 'signup.html', {'form': form})
     else:
         form = CustomSignUpForm()
-    return render(request, 'signup.html', {'form': form})
+        return render(request, 'signup.html', {'form': form})
 
 @login_required
 def account(request):

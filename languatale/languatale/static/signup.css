@@ -86,3 +86,14 @@ input {
     padding: 1rem;
     font-size: 0.875rem;
 }
+
+.error-messages {
+      color: red;
+      font-size: 0.9em;
+      margin-top: 5px;
+      margin-bottom: 10px;
+}
+
+.form-group input.error {
+      border-color: red;
+}

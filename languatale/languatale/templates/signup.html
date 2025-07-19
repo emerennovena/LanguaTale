@@ -13,16 +13,92 @@
     <div class="signup-card">
       <h1 class="title">LanguaTale</h1>
         <p class="subtitle">Stories for language learners</p>
+
       <form method="post">
         {% csrf_token %}
-        <div class="form-group">{{ form.username.label_tag }}{{ form.username }}</div>
-        <div class="form-group">{{ form.email.label_tag }}{{ form.email }}</div>
-        <div class="form-group">{{ form.first_name.label_tag }}{{ form.first_name }}</div>
-        <div class="form-group">{{ form.last_name.label_tag }}{{ form.last_name }}</div>
-        <div class="form-group">{{ form.password1.label_tag }}{{ form.password1 }}</div>
-        <div class="form-group">{{ form.password2.label_tag }}{{ form.password2 }}</div>
+        {% if form.non_field_errors %}
+          <div class="error-messages">
+            {% for error in form.non_field_errors %}
+              <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <div class="form-group">
+          {{ form.username.label_tag }}
+          {{ form.username }}
+          {% if form.username.errors %}
+            <div class="error-messages">
+              {% for error in form.username.errors %}
+                <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          {{ form.email.label_tag }}
+          {{ form.email }}
+          {% if form.email.errors %}
+            <div class="error-messages">
+              {% for error in form.email.errors %}
+                <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          {{ form.first_name.label_tag }}
+          {{ form.first_name }}
+          {% if form.first_name.errors %}
+            <div class="error-messages">
+              {% for error in form.first_name.errors %}
+                <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          {{ form.last_name.label_tag }}
+          {{ form.last_name }}
+          {% if form.last_name.errors %}
+            <div class="error-messages">
+              {% for error in form.last_name.errors %}
+                <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          {{ form.password1.label_tag }}
+          {{ form.password1 }}
+          {% if form.password1.errors %}
+            <div class="error-messages">
+              {% for error in form.password1.errors %}
+                <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          {{ form.password2.label_tag }}
+          {{ form.password2 }}
+          {% if form.password2.errors %}
+            <div class="error-messages">
+              {% for error in form.password2.errors %}
+                <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
         <button type="submit" class="btn-primary">Sign Up</button>
       </form>
+
       <form action="{% url 'login' %}" method="post" class="login-link-form">
       {% csrf_token %}
       <button type="submit" class="login-link-button">Already have an account? Log In</button>
