@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .models import Story, Language
 from django.contrib.auth import login
@@ -26,3 +27,15 @@ def signup(request):
     else:
         form = CustomSignUpForm()
     return render(request, 'signup.html', {'form': form})
+
+@login_required
+def account(request):
+    user = request.user
+    context = {
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'email': user.email,
+        'username': user.username,
+    }
+    return render(request, 'account.html', context)
+
