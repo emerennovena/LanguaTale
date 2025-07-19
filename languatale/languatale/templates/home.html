@@ -14,7 +14,7 @@
 <body>
     <header>
         <div class="header-text">
-            Hello, {{ user.username }}
+            Hello, {{ user.first_name }}
         </div>
         <div class="header-actions">
             <form action="{% url 'logout' %}" method="post">

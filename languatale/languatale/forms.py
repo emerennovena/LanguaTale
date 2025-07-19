@@ -10,6 +10,8 @@ class CustomSignUpForm(UserCreationForm):
         widgets = {
             'email': forms.EmailInput(attrs={'class': 'input-field'}),
             'username': forms.TextInput(attrs={'class': 'input-field'}),
+            'first_name': forms.TextInput(attrs={'class': 'input-field'}),
+            'last_name': forms.TextInput(attrs={'class': 'input-field'}),
             'password1': forms.PasswordInput(attrs={'class': 'input-field'}),
             'password2': forms.PasswordInput(attrs={'class': 'input-field'}),
         }
