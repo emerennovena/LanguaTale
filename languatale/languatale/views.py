@@ -3,12 +3,15 @@ from django.shortcuts import render, redirect
 from .models import Story, Language
 from django.contrib.auth import login
 from .forms import CustomSignUpForm
+from django.views.decorators.cache import cache_control
 
 def welcome(request):
     if request.user.is_authenticated:
         return redirect('home')
     return render(request, 'welcome.html')
 
+@login_required(login_url='login')
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def home(request):
     stories = Story.objects.all().prefetch_related('available_languages')
     context = {
@@ -30,7 +33,8 @@ def signup(request):
         form = CustomSignUpForm()
         return render(request, 'signup.html', {'form': form})
 
-@login_required
+@login_required(login_url='login')
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def account(request):
     user = request.user
     context = {
