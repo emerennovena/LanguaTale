@@ -1,9 +1,10 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Story, Language
 from django.contrib.auth import login
 from .forms import CustomSignUpForm
 from django.views.decorators.cache import cache_control
+from django.http import JsonResponse
 
 def welcome(request):
     if request.user.is_authenticated:
@@ -44,4 +45,45 @@ def account(request):
         'username': user.username,
     }
     return render(request, 'account.html', context)
+
+@login_required(login_url='login')
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def play_story(request, story_id, language_id):
+    story = get_object_or_404(Story, pk=story_id)
+    language = get_object_or_404(Language, pk=language_id)
+
+    ink_json = None
+    error_message = None
+
+    if story.ink_json_content:
+        language_id_str = str(language.id)
+        ink_json = story.ink_json_content.get(language_id_str)
+
+        if not ink_json:
+            error_message = f"Ink story content not available for {language.name} (ID: {language.id})"
+    else:
+        error_message = "No Ink JSON content found for this story."
+
+    context = {
+        'story': story,
+        'language': language,
+        'ink_json_content': ink_json,
+        'error_message': error_message,
+    }
+    return render(request, 'play_story.html', context)
+
+@login_required(login_url='login')
+def get_ink_json(request, story_id, language_id):
+    story = get_object_or_404(Story, pk=story_id)
+    language = get_object_or_404(Language, pk=language_id)
+
+    if story.ink_json_content:
+        language_id_str = str(language.id)
+        ink_json = story.ink_json_content.get(language_id_str)
+        if ink_json:
+            return JsonResponse(ink_json)
+        else:
+            return JsonResponse({'error': f'Ink JSON content not found for language ID {language_id_str}.'}, status=404)
+    else:
+        return JsonResponse({'error': 'No Ink JSON content found for this story.'}, status=404)
 

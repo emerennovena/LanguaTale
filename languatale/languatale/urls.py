@@ -11,4 +11,6 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(next_page='welcome'), name='logout'),
     path('signup/', views.signup, name='signup'),
     path('account/', views.account, name='account'),
+    path('story/<int:story_id>/play/<int:language_id>/', views.play_story, name='play_story'),
+    path('api/ink_json/<int:story_id>/<int:language_id>/', views.get_ink_json, name='get_ink_json'),
 ]

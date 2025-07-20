@@ -46,14 +46,14 @@
                 </div>
                 <div class="language-buttons">
                     {% for language in story.available_languages.all %}
-                    <button class="language-button">
+                    <a href="{% url 'play_story' story.id language.id %}" class="language-button" style="text-decoration: none !important;">
                         {{ language.name }}
-                    </button>
+                    </a>
                     {% endfor %}
                 </div>
             </div>
             {% empty %}
-            <p class="no-stories-message">No stories available yet. Check back soon!</p>
+            <p class="no-stories-message">No stories available yet.</p>
             {% endfor %}
         </section>
     </main>
@@ -64,4 +64,3 @@
 
 </body>
 </html>
-

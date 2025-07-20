@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ story.title }} - {{ language.name }}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="{% static 'play_story.css' %}" />
+
+    {{ ink_json_content|json_script:"ink-json-data" }}
+
+</head>
+<body>
+
+    <div class="container">
+        <h1>{{ story.title }}</h1>
+        <h2>{{ language.name }}</h2>
+        <br/>
+
+        <div class="back-to-home">
+            <a href="{% url 'home' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+                Home
+            </a>
+        </div>
+        <br/>
+
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% else %}
+            <div class="player-controls">
+                <button id="play-button" class="play-button-styled">Play</button>
+            </div>
+
+            <div id="story-container">
+                </div>
+
+            <div id="choices-container" class="choices-container">
+                </div>
+        {% endif %}
+
+    </div>
+
+
+    <script src="{% static 'ink.min.js' %}"></script>
+    <script src="{% static 'play_story.js' %}" defer></script>
+
+</body>
+</html>

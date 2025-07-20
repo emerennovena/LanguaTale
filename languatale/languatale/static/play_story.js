@@ -1,0 +1,213 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const storyContainerDiv = document.getElementById('story-container');
+    const playButton = document.getElementById('play-button');
+    const choicesContainerDiv = document.getElementById('choices-container');
+
+    let story = null;
+    let currentSentences = [];
+    let currentSentenceIndex = 0;
+
+    const getTagFromRoot = (jsonRoot, tagName) => {
+        if (Array.isArray(jsonRoot) && jsonRoot.length > 0 && Array.isArray(jsonRoot[0])) {
+            const tagEntry = jsonRoot[0].find(item => typeof item === 'string' && item.includes(`^${tagName}:`));
+            if (tagEntry) {
+                return tagEntry.replace(/[\^#\/]/g, '').trim();
+            }
+        }
+        return null;
+    };
+
+    function loadStoryJsonFromHtml() {
+        const scriptTag = document.getElementById('ink-json-data');
+        if (scriptTag) {
+            try {
+                return JSON.parse(scriptTag.textContent);
+            } catch (e) {
+                return null;
+            }
+        }
+        return null;
+    }
+
+    function displayNextSentence() {
+        choicesContainerDiv.innerHTML = '';
+        playButton.style.display = 'block';
+
+        if (!story || typeof story.ContinueMaximally !== 'function') {
+            playButton.textContent = 'Play';
+            playButton.disabled = false;
+            return;
+        }
+
+        if (currentSentenceIndex < currentSentences.length) {
+            const sentenceText = currentSentences[currentSentenceIndex].trim();
+            if (sentenceText) {
+                const sentenceElement = document.createElement('p');
+                sentenceElement.textContent = sentenceText;
+                sentenceElement.classList.add('story-sentence');
+                sentenceElement.style.opacity = '0';
+                storyContainerDiv.appendChild(sentenceElement);
+                setTimeout(() => {
+                    sentenceElement.style.transition = 'opacity 0.7s ease-in';
+                    sentenceElement.style.opacity = '1';
+                }, 50);
+            }
+            currentSentenceIndex++;
+            playButton.textContent = 'Continue';
+            playButton.disabled = false;
+        } else {
+            if (story.canContinue) {
+                const paragraph = story.ContinueMaximally();
+                currentSentences = paragraph.trim().split(/(?<=[.!?])\s*(?=[A-Z"'])/g).filter(s => s.trim() !== '');
+                currentSentenceIndex = 0;
+                if (currentSentences.length > 0) {
+                    displayNextSentence();
+                } else {
+                    handleInkState();
+                }
+            } else {
+                handleInkState();
+            }
+        }
+    }
+
+    function handleInkState() {
+        if (!story) return;
+
+        if (story.currentChoices.length > 0) {
+            displayChoices();
+        } else if (!story.canContinue && story.currentChoices.length === 0) {
+            storyContainerDiv.innerHTML += '<p class="story-end-message">Congratulations! You have reached the end of this story.</p>';
+            playButton.textContent = 'Replay';
+            playButton.style.display = 'block';
+            playButton.disabled = false;
+        } else {
+            playButton.textContent = 'Continue';
+            playButton.style.display = 'block';
+            playButton.disabled = false;
+        }
+    }
+
+    function displayChoices() {
+        if (!story) return;
+
+        choicesContainerDiv.innerHTML = '';
+        playButton.style.display = 'none';
+
+        story.currentChoices.forEach(choice => {
+            const choiceElement = document.createElement('div');
+            choiceElement.classList.add('story-choice-button');
+            choiceElement.textContent = choice.text;
+            choiceElement.addEventListener('click', function() {
+                story.ChooseChoiceIndex(choice.index);
+                choicesContainerDiv.innerHTML = '';
+                const paragraph = story.ContinueMaximally();
+                currentSentences = paragraph.trim().split(/(?<=[.!?])\s*(?=[A-Z"'])/g).filter(s => s.trim() !== '');
+                currentSentenceIndex = 0;
+                displayNextSentence();
+            });
+            choicesContainerDiv.appendChild(choiceElement);
+        });
+    }
+
+    playButton.addEventListener('click', function() {
+        if (playButton.textContent === 'Replay') {
+            storyContainerDiv.innerHTML = '';
+            choicesContainerDiv.innerHTML = '';
+            currentSentences = [];
+            currentSentenceIndex = 0;
+        }
+
+        if (typeof inkjs === 'undefined' || typeof inkjs.Story === 'undefined') {
+            playButton.textContent = 'Play';
+            playButton.disabled = true;
+            return;
+        }
+
+        if (!story || playButton.textContent === 'Replay' || playButton.textContent === 'Play') {
+            storyContainerDiv.innerHTML = '';
+            choicesContainerDiv.innerHTML = '';
+            const storyJson = loadStoryJsonFromHtml();
+            if (storyJson) {
+                try {
+                    story = new inkjs.Story(storyJson);
+                } catch (e) {
+                    story = null;
+                }
+
+                if (story && typeof story.ContinueMaximally === 'function') {
+                    const titleText = getTagFromRoot(storyJson.root, 'title');
+                    if (titleText) {
+                        const h1Element = document.querySelector('h1');
+                        if (h1Element) {
+                            h1Element.textContent = titleText.replace('title:', '').trim();
+                        }
+                    }
+
+                    const authorText = getTagFromRoot(storyJson.root, 'author');
+                    if (authorText) {
+                        let authorElement = document.querySelector('.story-author-display');
+                        if (!authorElement) {
+                            authorElement = document.createElement('p');
+                            authorElement.classList.add('story-author-display');
+                            const h1Element = document.querySelector('h1');
+                            if (h1Element) {
+                                h1Element.insertAdjacentElement('afterend', authorElement);
+                            } else {
+                                storyContainerDiv.insertAdjacentElement('beforebegin', authorElement);
+                            }
+                        }
+                        authorElement.textContent = `by ${authorText.replace('author:', '').trim()}`;
+                    }
+
+                    const paragraph = story.ContinueMaximally();
+                    currentSentences = paragraph.trim().split(/(?<=[.!?])\s*(?=[A-Z"'])/g).filter(s => s.trim() !== '');
+                    currentSentenceIndex = 0;
+                    displayNextSentence();
+                } else {
+                    playButton.textContent = 'Play';
+                    playButton.disabled = false;
+                }
+            } else {
+                playButton.textContent = 'Play';
+                playButton.disabled = false;
+            }
+        } else {
+            displayNextSentence();
+        }
+    });
+
+    playButton.textContent = 'Play';
+    playButton.disabled = false;
+    storyContainerDiv.innerHTML = '';
+    choicesContainerDiv.innerHTML = '';
+
+    const initialStoryJson = loadStoryJsonFromHtml();
+    if (initialStoryJson) {
+        const titleText = getTagFromRoot(initialStoryJson.root, 'title');
+        if (titleText) {
+            const h1Element = document.querySelector('h1');
+            if (h1Element) {
+                h1Element.textContent = titleText.replace('title:', '').trim();
+            }
+        }
+
+        const authorText = getTagFromRoot(initialStoryJson.root, 'author');
+        if (authorText) {
+            let authorElement = document.querySelector('.story-author-display');
+            if (!authorElement) {
+                authorElement = document.createElement('p');
+                authorElement.classList.add('story-author-display');
+                const h1Element = document.querySelector('h1');
+                if (h1Element) {
+                    h1Element.insertAdjacentElement('afterend', authorElement);
+                } else {
+                    storyContainerDiv.insertAdjacentElement('beforebegin', authorElement);
+                }
+            }
+            authorElement.textContent = `by ${authorText.replace('author:', '').trim()}`;
+        }
+    } else {
+        playButton.style.display = 'none';
+    }
+});
