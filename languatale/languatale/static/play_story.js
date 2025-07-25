@@ -3,9 +3,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const playButton = document.getElementById('play-button');
     const choicesContainerDiv = document.getElementById('choices-container');
 
+    const modal = document.getElementById('modal-container');
+    const helpButton = document.getElementById('help-button');
+    const closeModal = document.querySelector('.close');
+
     let story = null;
     let currentSentences = [];
     let currentSentenceIndex = 0;
+
+    helpButton.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    closeModal.onclick = function(){
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event){
+        if (event.target == modal){
+            modal.style.display = "none";
+        }
+    }
 
     const getTagFromRoot = (jsonRoot, tagName) => {
         if (Array.isArray(jsonRoot) && jsonRoot.length > 0 && Array.isArray(jsonRoot[0])) {
@@ -210,6 +228,5 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         playButton.style.display = 'none';
     }
-
 
 });
