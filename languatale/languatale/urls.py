@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -14,3 +16,6 @@ urlpatterns = [
     path('story/<int:story_id>/play/<int:language_id>/', views.play_story, name='play_story'),
     path('api/ink_json/<int:story_id>/<int:language_id>/', views.get_ink_json, name='get_ink_json'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
