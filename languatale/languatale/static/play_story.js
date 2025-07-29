@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentSentences = [];
     let currentSentenceIndex = 0;
 
+    // help button
+
     helpButton.onclick = function() {
         modal.style.display = "block";
     }
@@ -24,6 +26,9 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.style.display = "none";
         }
     }
+
+    // help button
+
 
     const getTagFromRoot = (jsonRoot, tagName) => {
         if (Array.isArray(jsonRoot) && jsonRoot.length > 0 && Array.isArray(jsonRoot[0])) {

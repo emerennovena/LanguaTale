@@ -18,3 +18,13 @@ class Story(models.Model):
     )
     def __str__(self):
         return self.title
+
+class Audio(models.Model):
+    audio_title = models.ForeignKey(Story, related_name= 'audio', on_delete=models.CASCADE)
+    sentence_text = models.TextField()
+    audio_file = models.FileField(upload_to='audio_sentence/')
+
+    def __str__(self):
+        return f"{self.story.title} - {self.sentence_text[:30]}"
+
+
