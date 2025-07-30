@@ -86,4 +86,3 @@ def get_ink_json(request, story_id, language_id):
             return JsonResponse({'error': f'Ink JSON content not found for language ID {language_id_str}.'}, status=404)
     else:
         return JsonResponse({'error': 'No Ink JSON content found for this story.'}, status=404)
-

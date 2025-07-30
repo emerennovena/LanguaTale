@@ -73,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(() => {
                     sentenceElement.style.transition = 'opacity 0.7s ease-in';
                     sentenceElement.style.opacity = '1';
+                    sentenceElement.scrollIntoView({ behavior: 'smooth', block: 'end' });
                 }, 50);
             }
             currentSentenceIndex++;
