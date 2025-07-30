@@ -15,6 +15,7 @@ urlpatterns = [
     path('account/', views.account, name='account'),
     path('story/<int:story_id>/play/<int:language_id>/', views.play_story, name='play_story'),
     path('api/ink_json/<int:story_id>/<int:language_id>/', views.get_ink_json, name='get_ink_json'),
+    path('api/tts/<int:story_id>/<int:language_id>/', views.generate_tts, name='generate_tts'),
 ]
 
 if settings.DEBUG:

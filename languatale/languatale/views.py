@@ -5,6 +5,10 @@ from django.contrib.auth import login
 from .forms import CustomSignUpForm
 from django.views.decorators.cache import cache_control
 from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponse, JsonResponse
+from gtts import gTTS
+import io
 
 def welcome(request):
     if request.user.is_authenticated:
@@ -86,3 +90,25 @@ def get_ink_json(request, story_id, language_id):
             return JsonResponse({'error': f'Ink JSON content not found for language ID {language_id_str}.'}, status=404)
     else:
         return JsonResponse({'error': 'No Ink JSON content found for this story.'}, status=404)
+
+@csrf_exempt
+def generate_tts(request, story_id, language_id):
+    if request.method == 'POST':
+        text = request.POST.get('text', '').strip()
+        if not text:
+            return JsonResponse({'error': 'No text provided'}, status=400)
+        map_language = {
+            1: 'en',
+            2: 'id',
+        }
+        lang_code = map_language.get(language_id, 'en')
+
+        try:
+            tts = gTTS(text=text, lang=lang_code)
+            mp3_fp = io.BytesIO()
+            tts.write_to_fp(mp3_fp)
+            mp3_fp.seek(0)
+            return HttpResponse(mp3_fp.read(), content_type='audio/mpeg')
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    return JsonResponse({'error':'Invalid method'}, status=405)

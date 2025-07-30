@@ -250,3 +250,23 @@ h2 {
     margin-bottom: 50px;
 }
 
+.story-sentence-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.tts-button {
+    font-size: 16px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    color: #333;
+}
+
+.tts-button:hover {
+    color: #007bff;
+}
+
+

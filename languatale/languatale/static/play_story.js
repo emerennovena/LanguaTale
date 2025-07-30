@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const storyContainerDiv = document.getElementById('story-container');
+    const storyId = storyContainerDiv.dataset.storyId;
+    const languageId = storyContainerDiv.dataset.languageId;
     const playButton = document.getElementById('play-button');
     const choicesContainerDiv = document.getElementById('choices-container');
 
@@ -29,6 +31,43 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // help button
 
+
+    function getCSRFToken() {
+        const name = 'csrftoken';
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+            const [key, value] = cookie.trim().split('=');
+            if (key === name) return decodeURIComponent(value);
+        }
+        return '';
+    }
+
+    function playTTS(sentenceText) {
+        const url = `/api/tts/${storyId}/${languageId}/`;
+        console.log("TTS URL:", url);
+
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': getCSRFToken(),
+            },
+            body: new URLSearchParams({ 'text': sentenceText })
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.blob();
+            })
+            .then(blob => {
+                const audioUrl = URL.createObjectURL(blob);
+                const audio = new Audio(audioUrl);
+                audio.play();
+                audio.onended = () => URL.revokeObjectURL(audioUrl);
+            })
+            .catch(err => {
+                console.error('TTS request failed:', err);
+            });
+    }
 
     const getTagFromRoot = (jsonRoot, tagName) => {
         if (Array.isArray(jsonRoot) && jsonRoot.length > 0 && Array.isArray(jsonRoot[0])) {
@@ -65,11 +104,26 @@ document.addEventListener('DOMContentLoaded', function() {
         if (currentSentenceIndex < currentSentences.length) {
             const sentenceText = currentSentences[currentSentenceIndex].trim();
             if (sentenceText) {
-                const sentenceElement = document.createElement('p');
-                sentenceElement.textContent = sentenceText;
-                sentenceElement.classList.add('story-sentence');
-                sentenceElement.style.opacity = '0';
+                const sentenceElement = document.createElement('div');
+                sentenceElement.classList.add('story-sentence-wrapper');
+
+                const textSpan = document.createElement('span');
+                textSpan.textContent = sentenceText;
+                textSpan.classList.add('story-sentence');
+
+                const audioButton = document.createElement('button');
+                audioButton.textContent = '🔊';
+                audioButton.classList.add('tts-button');
+                audioButton.title = 'Play audio';
+                audioButton.addEventListener('click', ()=>{
+                    playTTS(sentenceText);
+                });
+
+                sentenceElement.appendChild(textSpan);
+                sentenceElement.appendChild(audioButton);
                 storyContainerDiv.appendChild(sentenceElement);
+
+                sentenceElement.style.opacity = '0';
                 setTimeout(() => {
                     sentenceElement.style.transition = 'opacity 0.7s ease-in';
                     sentenceElement.style.opacity = '1';
