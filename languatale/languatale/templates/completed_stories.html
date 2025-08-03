@@ -40,7 +40,7 @@
         <h1 class="page-title">Completed Stories</h1>
 
         <div class="stories-grid">
-            {% for completed_story in stories %}
+            {% for completed_story in completed_stories %}
             <div class="story-card">
                 <div class="story-title">{{ completed_story.story.title }}</div>
                 <button class="language-button">{{ completed_story.language.name }}</button>

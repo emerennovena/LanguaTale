@@ -117,15 +117,8 @@ def generate_tts(request, story_id, language_id):
 
 @login_required
 def completed_stories(request):
-    user = request.user
-    completed_stories = CompletedStory.objects.filter(user=user).select_related('story', 'language')
-
-    context = {
-        'first_name': user.first_name,
-        'stories': completed_stories,
-    }
-    return render(request, 'completed_stories.html', context)
-
+    completed = CompletedStory.objects.filter(user=request.user)
+    return render(request, 'completed_stories.html', {'completed_stories': completed})
 
 @login_required
 @require_POST
@@ -140,3 +133,18 @@ def story_completed(request, story_id, language_id):
     completed_story, created = CompletedStory.objects.get_or_create(user=user, story=story, language=language)
 
     return JsonResponse({'success': True, 'completed': True})
+
+@login_required
+def get_completed_stories_api(request):
+    completed_stories = CompletedStory.objects.filter(user=request.user).select_related('story', 'language')
+    data = [
+        {
+            'story_id': cs.story.id,
+            'story_title': cs.story.title,
+            'language_id': cs.language.id if cs.language else None,
+            'language_name': cs.language.name if cs.language else None,
+        }
+        for cs in completed_stories
+    ]
+    return JsonResponse({'completed_stories': data})
+

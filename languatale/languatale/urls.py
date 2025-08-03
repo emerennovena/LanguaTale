@@ -18,6 +18,7 @@ urlpatterns = [
     path('api/tts/<int:story_id>/<int:language_id>/', views.generate_tts, name='generate_tts'),
     path('completed_stories/', views.completed_stories, name='completed_stories'),
     path('api/story_completed/<int:story_id>/<int:language_id>/', views.story_completed, name='story_completed'),
+    path('api/completed_stories/', views.get_completed_stories_api, name='api_completed_stories'),
 ]
 
 if settings.DEBUG:
