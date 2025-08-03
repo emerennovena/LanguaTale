@@ -21,8 +21,8 @@
         <aside>
             <div class="sidebar-greeting">Hello, {{ first_name }}!</div>
             <nav>
-                <a href="#">Account Overview</a>
-                <a href="#">Completed Stories</a>
+                <a href="/account/">Account Overview</a>
+                <a href="{% url 'completed_stories' %}">Completed Stories</a>
             </nav>
         </aside>
 

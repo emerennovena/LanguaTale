@@ -159,6 +159,11 @@ document.addEventListener('DOMContentLoaded', function() {
             playButton.textContent = 'Replay';
             playButton.style.display = 'block';
             playButton.disabled = false;
+
+            if (typeof onStoryCompleted === 'function') {
+                onStoryCompleted(storyId, languageId);
+            }
+
         } else {
             playButton.textContent = 'Continue';
             playButton.style.display = 'block';

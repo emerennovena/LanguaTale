@@ -193,3 +193,80 @@ h2 {
 #help-button:hover{
     text-decoration: underline;
 }
+
+.modal{
+    position: fixed;
+    z-index: 1;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background-color: rgba(0,0,0,0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content{
+    position: relative;
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 555px;
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 200px;
+}
+
+.close{
+    float: right;
+    color:#aaaaaa;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.close:hover{
+    color: #000;
+    text-decoration: none;
+}
+
+#story-container button {
+    font-size: 1.1em;
+    margin: 8px auto;
+    cursor: pointer;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    display: inline-block;
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.4);
+    transition: background-color 0.3s ease;
+}
+
+#story-container button:hover {
+    background-color: #1e40af;
+    margin-bottom: 50px;
+}
+
+.story-sentence-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.tts-button {
+    font-size: 16px;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    color: #333;
+}
+
+.tts-button:hover {
+    color: #007bff;
+}
+
+

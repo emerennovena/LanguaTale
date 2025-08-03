@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Completed Stories</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'account.css' %}">
+    <link rel="stylesheet" href="{% static 'completed_stories.css' %}">
+</head>
+<body>
+<header>
+    <div class="header-title">LanguaTale</div>
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="logout-button">Log Out</button>
+    </form>
+</header>
+
+<div class="main-container">
+    <aside>
+        <div class="sidebar-greeting">Hello, {{ first_name }}!</div>
+        <nav>
+            <a href="{% url 'account' %}">Account Overview</a>
+            <a href="{% url 'completed_stories' %}">Completed Stories</a>
+        </nav>
+    </aside>
+
+    <main>
+        <div class="back-to-home">
+            <a href="{% url 'home' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+                Home
+            </a>
+        </div>
+
+        <h1 class="page-title">Completed Stories</h1>
+
+        <div class="stories-grid">
+            {% for completed_story in stories %}
+            <div class="story-card">
+                <div class="story-title">{{ completed_story.story.title }}</div>
+                <button class="language-button">{{ completed_story.language.name }}</button>
+            </div>
+            {% empty %}
+            <p>No completed stories yet.</p>
+            {% endfor %}
+        </div>
+    </main>
+</div>
+
+<footer>
+    <p>© 2025 LanguaTale. All rights reserved.</p>
+</footer>
+
+    <script src="{% static 'completed_stories.js' %}"></script>
+
+</body>
+</html>

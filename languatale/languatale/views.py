@@ -1,14 +1,16 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Story, Language
-from django.contrib.auth import login
-from .forms import CustomSignUpForm
-from django.views.decorators.cache import cache_control
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse, JsonResponse
-from gtts import gTTS
 import io
+
+from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.decorators.cache import cache_control
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from gtts import gTTS
+
+from .forms import CustomSignUpForm
+from .models import Story, Language, CompletedStory
 
 def welcome(request):
     if request.user.is_authenticated:
@@ -112,3 +114,29 @@ def generate_tts(request, story_id, language_id):
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
     return JsonResponse({'error':'Invalid method'}, status=405)
+
+@login_required
+def completed_stories(request):
+    user = request.user
+    completed_stories = CompletedStory.objects.filter(user=user).select_related('story', 'language')
+
+    context = {
+        'first_name': user.first_name,
+        'stories': completed_stories,
+    }
+    return render(request, 'completed_stories.html', context)
+
+
+@login_required
+@require_POST
+def story_completed(request, story_id, language_id):
+    user = request.user
+    try:
+        story = Story.objects.get(id=story_id)
+        language = Language.objects.get(id=language_id)
+    except (Story.DoesNotExist, Language.DoesNotExist):
+        return JsonResponse({'error': 'Story or language not found'}, status=404)
+
+    completed_story, created = CompletedStory.objects.get_or_create(user=user, story=story, language=language)
+
+    return JsonResponse({'success': True, 'completed': True})
