@@ -118,7 +118,11 @@ def generate_tts(request, story_id, language_id):
 @login_required
 def completed_stories(request):
     completed = CompletedStory.objects.filter(user=request.user)
-    return render(request, 'completed_stories.html', {'completed_stories': completed})
+    context = {
+        'completed_stories': completed,
+        'first_name': request.user.first_name,
+    }
+    return render(request, 'completed_stories.html', context)
 
 @login_required
 @require_POST

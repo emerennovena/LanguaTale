@@ -160,9 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
             playButton.style.display = 'block';
             playButton.disabled = false;
 
-            if (typeof onStoryCompleted === 'function') {
-                onStoryCompleted(storyId, languageId);
-            }
+            onStoryCompleted(storyId, languageId);
 
         } else {
             playButton.textContent = 'Continue';
