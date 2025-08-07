@@ -1,3 +1,22 @@
+/*
+Basic CSS style written by Emerentia Novena, with some assistance from ChatGPT
+Filename: home.css
+Author: Emerentia Novena
+Date: 2025-08-07
+AI Usage Declaration:
+- This file contains code generated with the help of AI tools.
+- Tools used: ChatGPT
+- Date Generated: 2025-07-17
+- I have reviewed, tested, and understood all AI-generated code.
+- All code was reviewed and analysed by the author.
+
+ChatGPT was used to:
+- Suggest flexbox and grid layout structures for the main content and card sections
+- Provide responsive behavior techniques using media queries
+- Enhance hover effects and transitions on interactive components (e.g., `.story-card:hover`, `.logout-button:hover`)
+- Recommend use of box shadows, border-radius, and padding for visual enhancements
+ */
+
 body {
     font-family: 'Inter', sans-serif;
     background-color: #f3f4f6;
@@ -112,11 +131,11 @@ header {
     flex-direction: column;
     justify-content: space-between;
     transform: scale(1);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
 }
 
 .story-card:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 

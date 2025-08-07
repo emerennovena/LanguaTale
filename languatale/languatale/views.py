@@ -1,3 +1,13 @@
+# Filename: views.py
+# Author: Emerentia Novena
+# Date: 2025-08-07
+# AI Usage Declaration:
+# - This file contains code generated with the help of AI tools.
+# - Tools used: ChatGPT
+# - Date Generated: 2025-07-20
+# - AI Generated Sections are marked with comments: // [AI-GENERATED]
+# - I have reviewed, tested, and understood all AI-generated code.
+
 import io
 
 from django.contrib.auth import login
@@ -12,11 +22,13 @@ from gtts import gTTS
 from .forms import CustomSignUpForm
 from .models import Story, Language, CompletedStory
 
+# [STUDENT-WRITTEN]
 def welcome(request):
     if request.user.is_authenticated:
         return redirect('home')
     return render(request, 'welcome.html')
 
+# [STUDENT-WRITTEN]
 @login_required(login_url='login')
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def home(request):
@@ -27,6 +39,7 @@ def home(request):
     }
     return render(request, 'home.html', context)
 
+# [STUDENT-WRITTEN]
 def signup(request):
     if request.method == 'POST':
         form = CustomSignUpForm(request.POST)
@@ -40,6 +53,7 @@ def signup(request):
         form = CustomSignUpForm()
         return render(request, 'signup.html', {'form': form})
 
+# [STUDENT-WRITTEN]
 @login_required(login_url='login')
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def account(request):
@@ -52,6 +66,7 @@ def account(request):
     }
     return render(request, 'account.html', context)
 
+# [AI-GENERATED: ChatGPT: 2025-07-20] - I was stuck in implementing a view that can fetch and render dynamic JSON content, and I was unable to find examples of how to securely pass the story data to the front-end template.
 @login_required(login_url='login')
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def play_story(request, story_id, language_id):
@@ -78,6 +93,7 @@ def play_story(request, story_id, language_id):
     }
     return render(request, 'play_story.html', context)
 
+# [AI-GENERATED: ChatGPT: 2025-07-20] - I was unable to find suitable example solutions that retrieve an Ink file (now stored as JSON) from the Django admin interface, and was confused on how to implement it.
 @login_required(login_url='login')
 def get_ink_json(request, story_id, language_id):
     story = get_object_or_404(Story, pk=story_id)
@@ -93,6 +109,7 @@ def get_ink_json(request, story_id, language_id):
     else:
         return JsonResponse({'error': 'No Ink JSON content found for this story.'}, status=404)
 
+# [AI-GENERATED: ChatGPT: 2025-07-20] - I was stuck in implementing TTS, and I was unable to find suitable examples or solutions for generating TTS from the python library (although there is the documentation) using Google.
 @csrf_exempt
 def generate_tts(request, story_id, language_id):
     if request.method == 'POST':
@@ -115,6 +132,7 @@ def generate_tts(request, story_id, language_id):
             return JsonResponse({'error': str(e)}, status=500)
     return JsonResponse({'error':'Invalid method'}, status=405)
 
+# [STUDENT-WRITTEN]
 @login_required
 def completed_stories(request):
     completed = CompletedStory.objects.filter(user=request.user)
@@ -124,6 +142,7 @@ def completed_stories(request):
     }
     return render(request, 'completed_stories.html', context)
 
+# [STUDENT-WRITTEN]
 @login_required
 @require_POST
 def story_completed(request, story_id, language_id):
@@ -138,6 +157,7 @@ def story_completed(request, story_id, language_id):
 
     return JsonResponse({'success': True, 'completed': True})
 
+# [STUDENT-WRITTEN]
 @login_required
 def get_completed_stories_api(request):
     completed_stories = CompletedStory.objects.filter(user=request.user).select_related('story', 'language')
@@ -151,4 +171,3 @@ def get_completed_stories_api(request):
         for cs in completed_stories
     ]
     return JsonResponse({'completed_stories': data})
-

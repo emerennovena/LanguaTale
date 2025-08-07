@@ -1,3 +1,19 @@
+/*
+Basic CSS style written by Emerentia Novena, with some assistance from ChatGPT
+Filename: completed_stories.css
+Author: Emerentia Novena
+Date: 2025-08-07
+AI Usage Declaration:
+- This file contains code generated with the help of AI tools.
+- Tools used: ChatGPT
+- Date Generated: 2025-08-03
+- I have reviewed, tested, and understood all AI-generated code.
+- All code was reviewed and analysed by the author.
+
+ChatGPT was used for:
+- Layout structure enhancements such as grid template columns, box shadows, transform
+ */
+
 .stories-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

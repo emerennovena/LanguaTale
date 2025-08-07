@@ -22,4 +22,3 @@ class StoryAdmin(admin.ModelAdmin):
     list_display = ('title', 'author')
     fields = ('title', 'author', 'available_languages', 'ink_json_content')
     search_fields = ('title', 'author')
-
