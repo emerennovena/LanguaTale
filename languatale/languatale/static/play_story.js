@@ -14,24 +14,19 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentSentenceIndex = 0;
 
     // help button
-
     helpButton.onclick = function() {
         modal.style.display = "block";
     }
-
     closeModal.onclick = function(){
         modal.style.display = "none";
     }
-
     window.onclick = function(event){
         if (event.target == modal){
             modal.style.display = "none";
         }
     }
 
-    // help button
-
-
+    // Adapted from Django documentation: https://docs.djangoproject.com/en/5.2/howto/csrf/
     function getCSRFToken() {
         const name = 'csrftoken';
         const cookies = document.cookie.split(';');

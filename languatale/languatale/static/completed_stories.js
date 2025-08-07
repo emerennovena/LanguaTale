@@ -1,3 +1,4 @@
+// Adapted from Django documentation: https://docs.djangoproject.com/en/5.2/howto/csrf/
 function getCSRFToken() {
     const name = 'csrftoken';
     const cookies = document.cookie.split(';');
@@ -9,8 +10,6 @@ function getCSRFToken() {
 }
 
 function onStoryCompleted(storyId, languageId) {
-    console.log(`DEBUG: Completing story ${storyId} in language ${languageId}`);
-
     fetch(`/api/story_completed/${storyId}/${languageId}/`, {
         method: 'POST',
         headers: {
@@ -24,9 +23,7 @@ function onStoryCompleted(storyId, languageId) {
             return response.json();
         })
         .then(data => {
-            console.log('DEBUG: Completion logged:', data);
             if (data.success) {
-                console.log('DEBUG: Story completion saved successfully.');
                 return fetch('/api/completed_stories/');
             } else {
                 throw new Error('Completion not successful');
@@ -39,7 +36,7 @@ function onStoryCompleted(storyId, languageId) {
         .then(data => {
             updateCompletedStoriesList(data.completed_stories);
         })
-        .catch(err => console.error('DEBUG: Error logging completion or fetching completed stories:', err));
+        .catch(err => console.error(err));
 }
 
 function updateCompletedStoriesList(completedStories) {
