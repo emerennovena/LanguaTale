@@ -8,6 +8,9 @@
 # - AI Generated Sections are marked with comments: // [AI-GENERATED]
 # - I have reviewed, tested, and understood all AI-generated code.
 
+# Note:
+# - Any additional changes made since the original version are student-written.
+
 import io
 
 from django.contrib.auth import login
@@ -105,9 +108,9 @@ def get_ink_json(request, story_id, language_id):
         if ink_json:
             return JsonResponse(ink_json)
         else:
-            return JsonResponse({'error': f'Ink JSON content not found for language ID {language_id_str}.'}, status=404)
+            return JsonResponse({'error': 'Coming soon...'})
     else:
-        return JsonResponse({'error': 'No Ink JSON content found for this story.'}, status=404)
+        return JsonResponse({'error':'Coming soon...'})
 
 # [AI-GENERATED: ChatGPT: 2025-07-20] - I was stuck in implementing TTS, and I was unable to find suitable examples or solutions for generating TTS from the python library (although there is the documentation) using Google.
 @csrf_exempt
