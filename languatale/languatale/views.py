@@ -96,22 +96,6 @@ def play_story(request, story_id, language_id):
     }
     return render(request, 'play_story.html', context)
 
-# [AI-GENERATED: ChatGPT: 2025-07-20] - I was unable to find suitable example solutions that retrieve an Ink file (now stored as JSON) from the Django admin interface, and was confused on how to implement it.
-@login_required(login_url='login')
-def get_ink_json(request, story_id, language_id):
-    story = get_object_or_404(Story, pk=story_id)
-    language = get_object_or_404(Language, pk=language_id)
-
-    if story.ink_json_content:
-        language_id_str = str(language.id)
-        ink_json = story.ink_json_content.get(language_id_str)
-        if ink_json:
-            return JsonResponse(ink_json)
-        else:
-            return JsonResponse({'error': 'Coming soon...'})
-    else:
-        return JsonResponse({'error':'Coming soon...'})
-
 # [AI-GENERATED: ChatGPT: 2025-07-20] - I was stuck in implementing TTS, and I was unable to find suitable examples or solutions for generating TTS from the python library (although there is the documentation) using Google.
 @csrf_exempt
 def generate_tts(request, story_id, language_id):
@@ -122,6 +106,7 @@ def generate_tts(request, story_id, language_id):
         map_language = {
             1: 'en',
             2: 'id',
+            4: 'es',
         }
         lang_code = map_language.get(language_id, 'en')
 

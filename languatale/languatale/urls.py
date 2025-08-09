@@ -14,7 +14,6 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('account/', views.account, name='account'),
     path('story/<int:story_id>/play/<int:language_id>/', views.play_story, name='play_story'),
-    path('api/ink_json/<int:story_id>/<int:language_id>/', views.get_ink_json, name='get_ink_json'),
     path('api/tts/<int:story_id>/<int:language_id>/', views.generate_tts, name='generate_tts'),
     path('completed_stories/', views.completed_stories, name='completed_stories'),
     path('api/story_completed/<int:story_id>/<int:language_id>/', views.story_completed, name='story_completed'),
