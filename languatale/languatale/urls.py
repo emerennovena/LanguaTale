@@ -19,6 +19,10 @@ urlpatterns = [
     path('completed_stories/', views.completed_stories, name='completed_stories'),
     path('api/story_completed/<int:story_id>/<int:language_id>/', views.story_completed, name='story_completed'),
     path('api/completed_stories/', views.get_completed_stories_api, name='api_completed_stories'),
+    path('password-reset/',auth_views.PasswordResetView.as_view(template_name='password_reset_form.html'),name='password_reset'),
+    path('password-reset/done/', auth_views.PasswordResetDoneView.as_view( template_name='password_reset_done.html'), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='password_reset_confirm.html'), name='password_reset_confirm'),
+    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='password_reset_complete.html'), name='password_reset_complete'),
 ]
 
 if settings.DEBUG:

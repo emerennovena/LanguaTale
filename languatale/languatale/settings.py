@@ -121,3 +121,14 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 LOGIN_REDIRECT_URL ='/'
 LOGOUT_REDIRECT_URL ='/welcome/'
 LOGIN_URL = '/login/'
+
+# Email API for forgot password functionality using Maileroo
+# Documentation: https://maileroo.com/docs/introduction/#key-features
+# Provider: Maileroo - Email delivery service
+# Configuration: Global SMTP Account credentials
+EMAIL_HOST = 'smtp.maileroo.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = '60ca95.18395.ce3a982857afabe024dc8856fbe2b26b@g.maileroo.net'
+EMAIL_HOST_PASSWORD = '6decbbbbe70f12226c92343a'
+DEFAULT_FROM_EMAIL = 'languatale@30ea18a6b6005641.maileroo.org'
