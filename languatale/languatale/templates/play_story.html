@@ -25,6 +25,12 @@
     <div class="container">
         <h1>{{ story.title }}</h1>
         <h2>{{ language.name }}</h2>
+        <div class="learning-tip">
+            <!--Temporary inline styles used in HTML while debugging Django static files configuration-->
+            <p style="font-style: italic; font-size: 0.870rem; text-align: center; color: #6b7280; margin-bottom: 2rem;">
+                💡<strong>Tip:</strong> A basic understanding of the language will enhance your learning experience
+            </p>
+        </div>
         <br/>
 
         <div class="back-to-home">
@@ -40,8 +46,16 @@
                 <div id="modal-container" class="modal">
                     <div class="modal-content">
                         <span id="close" class="close">&times;</span>
-                        <p>Click the play button or the continue button to continue the story.</p>
-                        <p>Click the audio icon to listen to the audio.</p>
+                        <h2 class="modal-title">How to Read the Story</h2>
+                        <i class="icon-demo fas fa-play"></i> Click <strong>Play</strong> to start reading the story
+                        </br>
+                        <i class="icon-demo fas fa-forward"></i> Click <strong>Continue</strong> to read sentence by sentence
+                        </br>
+                        <i class="icon-demo fas fa-volume-up"></i> Click the audio icon to hear each sentence
+                        </br>
+                        <i class="icon-demo fas fa-road"></i> Choose your path when options appear
+                        </br>
+                        <i class="icon-demo fas fa-redo"></i> Hit <strong>Replay</strong> to experience different endings
                     </div>
                 </div>
         </div>

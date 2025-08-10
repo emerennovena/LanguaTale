@@ -108,11 +108,9 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-ABSOLUTE_STATIC_PATH = '/languatale/languatale/static'
+ABSOLUTE_STATIC_PATH = 'languatale/static'
 
 STATICFILES_DIRS = [BASE_DIR / 'languatale' / 'static']
-
-# STATICFILES_DIRS = [Path(ABSOLUTE_STATIC_PATH)]
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
