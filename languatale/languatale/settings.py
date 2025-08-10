@@ -17,6 +17,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -107,9 +108,11 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-ABSOLUTE_STATIC_PATH = '/Users/vincentiasutardji/Desktop/LanguaTale/languatale/languatale/languatale/static'
+ABSOLUTE_STATIC_PATH = '/languatale/languatale/static'
 
-STATICFILES_DIRS = [Path(ABSOLUTE_STATIC_PATH)]
+STATICFILES_DIRS = [BASE_DIR / 'languatale' / 'static']
+
+# STATICFILES_DIRS = [Path(ABSOLUTE_STATIC_PATH)]
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 

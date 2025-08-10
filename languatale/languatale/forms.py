@@ -3,6 +3,8 @@ from django import forms
 from django.contrib.auth.models import User
 
 class CustomSignUpForm(UserCreationForm):
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'input-field'}))
+
     class Meta(UserCreationForm.Meta):
         model = User
         fields = UserCreationForm.Meta.fields + ('email', 'first_name', 'last_name',)

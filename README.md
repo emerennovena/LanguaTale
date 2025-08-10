@@ -51,5 +51,4 @@ LanguaTale is a story-based language learning web application. It allows users t
 ### AI GENERATED (Significant AI Assistance)
 | File               | Lines   | Description                   | Learning Outcome                     |
 |--------------------|---------|-------------------------------|------------------------------------|
-| completed_story.js  | 12-70   | JS for story completion        | DOM manipulation & DB interactions |
 | play_story.js       | 51-308  | Interactive story logic        | JS functions, events, JSON handling & gTTS |

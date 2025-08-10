@@ -92,7 +92,6 @@ h2 {
 }
 
 #story-container {
-    text-align: center;
     margin-top: 20px;
     line-height: 1.6;
     max-width: 800px;
@@ -101,9 +100,14 @@ h2 {
 }
 
 .story-sentence {
-    margin-bottom: 10px;
+    flex: 1 !important;
+    text-align: left;
+    margin-bottom: 0;
+    word-wrap: break-word;
+    hyphens: auto;
     font-size: 1.1em;
     color: #444;
+    line-height: 1.6;
 }
 
 .choices-container {
@@ -250,7 +254,7 @@ h2 {
     text-decoration: none;
 }
 
-#story-container button {
+#story-container button:not(.tts-button) {
     font-size: 1.1em;
     margin: 8px auto;
     cursor: pointer;
@@ -269,22 +273,37 @@ h2 {
 }
 
 .story-sentence-wrapper {
-    display: flex;
-    align-items: center;
+    display: flex !important;
+    align-items: center !important;
     gap: 10px;
     margin-bottom: 12px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .tts-button {
-    font-size: 16px;
+    font-size: 16px !important;
     cursor: pointer;
-    background-color: transparent;
+    background-color: transparent !important;
     border: none;
-    color: #333;
+    color: #333 !important;
+    padding: 8px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    min-width: 32px;
+    text-align: center;
+    margin: 0 !important;
+    box-shadow: none !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
 }
 
 .tts-button:hover {
-    color: #007bff;
+    color: #2563eb !important;
+    background-color: rgba(37, 99, 235, 0.1) !important;
 }
 
 .tts-button i{
@@ -292,5 +311,6 @@ h2 {
 }
 
 .tts-button:focus {
-    outline: none;
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
 }
