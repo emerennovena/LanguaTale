@@ -1,0 +1,53 @@
+/*
+Basic CSS style written by Emerentia Novena, with some assistance from ChatGPT
+Filename: completed_stories.css
+Author: Emerentia Novena
+Date: 2025-08-07
+AI Usage Declaration:
+- This file contains code generated with the help of AI tools.
+- Tools used: ChatGPT
+- Date Generated: 2025-08-03
+- I have reviewed, tested, and understood all AI-generated code.
+- All code was reviewed and analysed by the author.
+
+ChatGPT was used for:
+- Layout structure enhancements such as grid template columns, box shadows, transform
+ */
+
+.stories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 48rem;
+}
+
+.story-card {
+    background: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.15s ease-in-out;
+}
+
+.story-card:hover {
+    transform: translateY(-4px);
+}
+
+.story-title {
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 0.75rem;
+}
+
+.language-button {
+    background: #e2e8f0;
+    color: #4a5568;
+    border: none;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: default;
+}

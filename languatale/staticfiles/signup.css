@@ -1,0 +1,114 @@
+/*
+Basic CSS style written by Emerentia Novena, with some assistance from ChatGPT
+Filename: signup.css
+Author: Emerentia Novena
+Date: 2025-08-08
+AI Usage Declaration:
+- This file contains code generated with the help of AI tools.
+- Tools used: ChatGPT
+- Date Generated: 2025-07-19
+- I have reviewed, tested, and understood all AI-generated code.
+- All code was reviewed and analysed by the author.
+
+ChatGPT was used for:
+- Layout structure and style enhancements such as box-shadows and border-radius
+ */
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f3f3f3;
+    margin: 0;
+    padding: 0;
+}
+
+.signup-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 91vh;
+}
+
+.signup-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    width: 350px;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+.btn-primary {
+    margin-top: 1rem;
+    background: #ddd;
+    border: none;
+    padding: 0.7rem 2rem;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.login-link-form {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.login-link-button {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
+
+}
+
+.footer {
+    background-color: #111827;
+    color: #ffffff;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.875rem;
+}
+
+.error-messages {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.form-group input.error {
+    border-color: red;
+}

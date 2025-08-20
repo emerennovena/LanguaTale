@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ story.title }} - {{ language.name }}</title>
+
+    <!--Google Font: https://fonts.google.com/selection/embed-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet" />
+    <!--Google Font: https://fonts.google.com/selection/embed-->
+
+    <link rel="stylesheet" href="{% static 'play_story.css' %}" />
+
+    <!--Icon: https://cdnjs.com/libraries/font-awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+
+    {{ ink_json_content|json_script:"ink-json-data" }}
+
+</head>
+<body>
+
+    <div class="container">
+        <h1>{{ story.title }}</h1>
+        <h2>{{ language.name }}</h2>
+        <div class="learning-tip">
+            <!--Temporary inline styles used in HTML while debugging Django static files configuration-->
+            <p style="font-style: italic; font-size: 0.870rem; text-align: center; color: #6b7280; margin-bottom: 2rem;">
+                💡<strong>Tip:</strong> A basic understanding of the language will enhance your learning experience
+            </p>
+        </div>
+        <br/>
+
+        <div class="back-to-home">
+            <a href="{% url 'home' %}">
+                <!--Google Font: https://fonts.google.com/selection/embed-->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+                <!--Google Font: https://fonts.google.com/selection/embed-->
+                Home
+            </a>
+                <button id="help-button" type="button">Help</button>
+                <div id="modal-container" class="modal">
+                    <div class="modal-content">
+                        <span id="close" class="close">&times;</span>
+                        <h2 class="modal-title">How to Read the Story</h2>
+                        <i class="icon-demo fas fa-play"></i> Click <strong>Play</strong> to start reading the story
+                        </br>
+                        <i class="icon-demo fas fa-forward"></i> Click <strong>Continue</strong> to read sentence by sentence
+                        </br>
+                        <i class="icon-demo fas fa-volume-up"></i> Click the audio icon to hear each sentence
+                        </br>
+                        <i class="icon-demo fas fa-road"></i> Choose your path when options appear
+                        </br>
+                        <i class="icon-demo fas fa-redo"></i> Hit <strong>Replay</strong> to experience different endings
+                    </div>
+                </div>
+        </div>
+        <br/>
+
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% else %}
+            <div class="player-controls">
+                <button id="play-button" class="play-button-styled">Play</button>
+            </div>
+
+            <div id="story-container" data-story-id="{{ story.id }}" data-language-id="{{ language.id }}">
+                </div>
+
+            <div id="choices-container" class="choices-container">
+                </div>
+        {% endif %}
+
+    </div>
+
+
+    <script src="{% static 'ink.min.js' %}"></script>
+    <script src="{% static 'play_story.js' %}" defer></script>
+    <script src="{% static 'completed_stories.js' %}" defer></script>
+
+</body>
+
+</html>

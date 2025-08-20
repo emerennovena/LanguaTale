@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LanguaTale - Log In</title>
+  <!--Google Font: https://fonts.google.com/selection/embed-->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <!--Google Font: https://fonts.google.com/selection/embed-->
+  <link rel="stylesheet" href="{% static 'signup.css' %}" />
+</head>
+<body>
+  <main class="signup-container">
+    <div class="signup-card">
+      <h1 class="title">LanguaTale</h1>
+      <p class="subtitle">Stories for language learners</p>
+
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-group">{{ form.username.label_tag }}{{ form.username }}</div>
+        <div class="form-group">{{ form.password.label_tag }}{{ form.password }}</div>
+        <button type="submit" class="btn-primary">Log In</button>
+      </form>
+
+      <form action="{% url 'signup' %}" method="get" class="login-link-form">
+        <p><a href="{% url 'password_reset' %}">Forgot password?</a></p>
+        <button type="submit" class="login-link-button">Don't have an account? Sign Up</button>
+      </form>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© 2025 LanguaTale. All rights reserved.</p>
+  </footer>
+</body>
+</html>

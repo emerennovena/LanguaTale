@@ -1,0 +1,104 @@
+/*
+Basic CSS style written by Emerentia Novena, with some assistance from ChatGPT
+Filename: welcome.css
+Author: Emerentia Novena
+Date: 2025-08-08
+AI Usage Declaration:
+- This file contains code generated with the help of AI tools.
+- Tools used: ChatGPT
+- Date Generated: 2025-07-19
+- I have reviewed, tested, and understood all AI-generated code.
+- All code was reviewed and analysed by the author.
+
+ChatGPT was used for:
+- Layout structure and style enhancements such as box-shadows, transition and border-radius
+ */
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f3f4f6;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.welcome-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.welcome-card {
+    background-color: #ffffff;
+    padding: 3rem 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    color: #6b7280;
+    margin-bottom: 1.5rem;
+}
+
+.welcome-text {
+    font-size: 1rem;
+    color: #374151;
+    margin-bottom: 2rem;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #3b82f6;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #2563eb;
+}
+
+.btn-secondary {
+    background-color: #e5e7eb;
+    color: #1f2937;
+}
+
+.btn-secondary:hover {
+    background-color: #d1d5db;
+}
+
+.footer {
+    background-color: #111827;
+    color: #ffffff;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.875rem;
+}

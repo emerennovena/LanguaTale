@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Information</title>
+    <!--Google Font: https://fonts.google.com/selection/embed-->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!--Google Font: https://fonts.google.com/selection/embed-->
+    <link rel="stylesheet" href="{% static 'account.css' %}">
+</head>
+<body>
+    <header>
+        <div class="header-title">LanguaTale</div>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="logout-button">Log Out</button>
+        </form>
+    </header>
+
+    <div class="main-container">
+        <aside>
+            <div class="sidebar-greeting">Hello, {{ first_name }}!</div>
+            <nav>
+                <a href="/account/">Account Overview</a>
+                <a href="{% url 'completed_stories' %}">Completed Stories</a>
+            </nav>
+        </aside>
+
+        <main>
+            <div class="back-to-home">
+                <a href="{% url 'home' %}">
+                    <!--A user icon from heroicons: https://heroicons.com/outline-->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                    <!--A user icon from heroicons: https://heroicons.com/outline-->
+                    Home
+                </a>
+            </div>
+
+            <h1 class="page-title">Personal Information</h1>
+
+            <div class="info-card">
+                <div class="info-grid">
+                    <div class="form-group">
+                        <label>First Name:</label>
+                        <div class="display-text">{{ first_name }}</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Last Name:</label>
+                        <div class="display-text">{{ last_name }}</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Email:</label>
+                    <div class="display-text">{{ email }}</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>© 2025 LanguaTale. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

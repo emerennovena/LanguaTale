@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LanguaTale - Sign Up</title>
+  <!--Google Font: https://fonts.google.com/selection/embed-->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <!--Google Font: https://fonts.google.com/selection/embed-->
+  <link rel="stylesheet" href="{% static 'signup.css' %}" />
+</head>
+<body>
+  <main class="signup-container">
+    <div class="signup-card">
+      <h1 class="title">LanguaTale</h1>
+        <p class="subtitle">Stories for language learners</p>
+
+      <form method="post">
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+          <div class="error-messages">
+            {% for error in form.non_field_errors %}
+              <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <div class="form-group">
+          {{ form.username.label_tag }}
+          {{ form.username }}
+          {% if form.username.errors %}
+            <div class="error-messages">
+              {% for error in form.username.errors %}
+                <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          {{ form.email.label_tag }}
+          {{ form.email }}
+          {% if form.email.errors %}
+            <div class="error-messages">
+              {% for error in form.email.errors %}
+                <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          {{ form.first_name.label_tag }}
+          {{ form.first_name }}
+          {% if form.first_name.errors %}
+            <div class="error-messages">
+              {% for error in form.first_name.errors %}
+                <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          {{ form.last_name.label_tag }}
+          {{ form.last_name }}
+          {% if form.last_name.errors %}
+            <div class="error-messages">
+              {% for error in form.last_name.errors %}
+                <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          {{ form.password1.label_tag }}
+          {{ form.password1 }}
+          {% if form.password1.errors %}
+            <div class="error-messages">
+              {% for error in form.password1.errors %}
+                <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <div class="form-group">
+          {{ form.password2.label_tag }}
+          {{ form.password2 }}
+          {% if form.password2.errors %}
+            <div class="error-messages">
+              {% for error in form.password2.errors %}
+                <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+
+        <button type="submit" class="btn-primary">Sign Up</button>
+      </form>
+
+      <form action="{% url 'login' %}" method="post" class="login-link-form">
+      {% csrf_token %}
+      <button type="submit" class="login-link-button">Already have an account? Log In</button>
+      </form>
+    </div>
+  </main>
+  <footer class="footer">
+    <p>© 2025 LanguaTale. All rights reserved.</p>
+  </footer>
+</body>
+</html>

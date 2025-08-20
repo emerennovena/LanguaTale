@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome to LanguaTale</title>
+  <!--Google Font: https://fonts.google.com/selection/embed-->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <!--Google Font: https://fonts.google.com/selection/embed-->
+  <link rel="stylesheet" href="{% static 'welcome.css' %}" />
+</head>
+<body>
+  <main class="welcome-container">
+    <div class="welcome-card">
+      <h1 class="title">LanguaTale</h1>
+      <p class="subtitle">Stories for language learners</p>
+      <p class="welcome-text">Start reading stories by logging in or signing up.</p>
+      <div class="button-group">
+        <a href="{% url 'login' %}" class="btn-primary">Log In</a>
+        <a href="{% url 'signup' %}" class="btn-primary">Sign Up</a>
+      </div>
+    </div>
+  </main>
+  <footer class="footer">
+    <p>© 2025 LanguaTale. All rights reserved.</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LanguaTale</title>
+    <!--Google Font: https://fonts.google.com/selection/embed-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <!--Google Font: https://fonts.google.com/selection/embed-->
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+</head>
+<body>
+    <header>
+        <div class="header-text">
+            Hello, {{ user.first_name }}
+        </div>
+        <div class="header-actions">
+            <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="logout-button">Log Out</button>
+            </form>
+            <div class="user-icon">
+                <a href="/account/" aria-label="Account Page" style="color: inherit; display: inline-block;">
+                    <!--A user icon from heroicons: https://heroicons.com/outline-->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6" width="48" height="48">
+                        <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" clip-rule="evenodd" />
+                    </svg>
+                    <!--A user icon from heroicons: https://heroicons.com/outline-->
+                </a>
+            </div>
+        </div>
+    </header>
+    <main class="main-content">
+        <section class="app-title-section">
+            <h1 class="app-title">LanguaTale</h1>
+            <p class="app-subtitle">Stories for language learners</p>
+        </section>
+
+        <section class="story-cards-section">
+            {% for story in stories %}
+            <div class="story-card">
+                <div>
+                    <h2 class="story-title">{{ story.title }}</h2>
+                    <p class="story-author">by {{ story.author }}</p>
+                </div>
+                <div class="language-buttons">
+                    {% for language in story.available_languages.all %}
+                    <a href="{% url 'play_story' story.id language.id %}" class="language-button" style="text-decoration: none !important;">
+                        {{ language.name }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% empty %}
+            <p class="no-stories-message">No stories available yet.</p>
+            {% endfor %}
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 LanguaTale. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
