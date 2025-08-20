@@ -1,3 +1,21 @@
+/*
+Basic CSS style written by Emerentia Novena, with some assistance from ChatGPT
+Filename: play_story.css
+Author: Emerentia Novena
+Date: 2025-08-07
+AI Usage Declaration:
+- This file contains code generated with the help of AI tools.
+- Tools used: ChatGPT
+- Date Generated: 2025-07-20
+- I have reviewed, tested, and understood all AI-generated code.
+- All code was reviewed and analysed by the author.
+
+ChatGPT was used to:
+- Suggest layout structure using flexbox
+- Improve visual styling of buttons and interactive elements such as `.play-button-styled`, `.story-choice-button`
+- Enhance style and spacing such as padding, max-width, and box-shadow.
+ */
+
 body {
     font-family: 'Inter', sans-serif;
     margin: 0;
@@ -74,7 +92,6 @@ h2 {
 }
 
 #story-container {
-    text-align: center;
     margin-top: 20px;
     line-height: 1.6;
     max-width: 800px;
@@ -83,9 +100,14 @@ h2 {
 }
 
 .story-sentence {
-    margin-bottom: 10px;
+    flex: 1 !important;
+    text-align: left;
+    margin-bottom: 0;
+    word-wrap: break-word;
+    hyphens: auto;
     font-size: 1.1em;
     color: #444;
+    line-height: 1.6;
 }
 
 .choices-container {
@@ -214,7 +236,7 @@ h2 {
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-    max-width: 555px;
+    max-width: 600px;
     border-radius: 10px;
     margin: auto;
     margin-top: 200px;
@@ -232,7 +254,7 @@ h2 {
     text-decoration: none;
 }
 
-#story-container button {
+#story-container button:not(.tts-button) {
     font-size: 1.1em;
     margin: 8px auto;
     cursor: pointer;
@@ -240,33 +262,55 @@ h2 {
     color: white;
     border: none;
     border-radius: 12px;
-    display: inline-block;
     box-shadow: 0 2px 6px rgba(37, 99, 235, 0.4);
     transition: background-color 0.3s ease;
+    display: inline-block;
 }
 
-#story-container button:hover {
+#story-container .play-button-styled:hover {
     background-color: #1e40af;
     margin-bottom: 50px;
 }
 
 .story-sentence-wrapper {
-    display: flex;
-    align-items: center;
+    display: flex !important;
+    align-items: center !important;
     gap: 10px;
     margin-bottom: 12px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .tts-button {
-    font-size: 16px;
+    font-size: 16px !important;
     cursor: pointer;
-    background-color: transparent;
+    background-color: transparent !important;
     border: none;
-    color: #333;
+    color: #333 !important;
+    padding: 8px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    min-width: 32px;
+    text-align: center;
+    margin: 0 !important;
+    box-shadow: none !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
 }
 
 .tts-button:hover {
-    color: #007bff;
+    color: #2563eb !important;
+    background-color: rgba(37, 99, 235, 0.1) !important;
 }
 
+.tts-button i{
+    pointer-events:none;
+}
 
+.tts-button:focus {
+    outline: 2px solid #2563eb;
+    outline-offset: 2px;
+}

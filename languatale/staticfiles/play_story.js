@@ -1,3 +1,25 @@
+/*
+Filename: play_story.js
+Author: Emerentia Novena
+Date: 2025-08-07
+AI Usage Declaration:
+- This file contains code generated with the help of AI tools.
+- Tools used: ChatGPT
+- Date Generated: 2025-07-20
+- AI Generated Sections are marked with comments: // [AI-GENERATED]
+
+Reason for AI Assistance:
+- InkJS documentation (https://www.npmjs.com/package/inkjs) is very limited and does not provide detailed examples or guidance on integration.
+- I was stuck on how to display Ink story content sentence-by-sentence, since InkJS display the whole paragraph.
+- Additional challenges included splitting paragraphs into sentences, managing sentence indices, handling UI state changes (play, continue, replay buttons), and smooth scrolling animations.
+- No clear or comprehensive examples were made available online, so I used ChatGPT to help generate the logic and code for these features.
+- I have reviewed, tested, and fully understand all AI-generated code before including it in this project.
+
+Note:
+- Any additional changes made since the original version are student-written.
+*/
+
+// [STUDENT-WRITTEN]
 document.addEventListener('DOMContentLoaded', function() {
     const storyContainerDiv = document.getElementById('story-container');
     const storyId = storyContainerDiv.dataset.storyId;
@@ -13,25 +35,20 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentSentences = [];
     let currentSentenceIndex = 0;
 
-    // help button
-
+    // [STUDENT-WRITTEN]
     helpButton.onclick = function() {
         modal.style.display = "block";
     }
-
     closeModal.onclick = function(){
         modal.style.display = "none";
     }
-
     window.onclick = function(event){
         if (event.target == modal){
             modal.style.display = "none";
         }
     }
 
-    // help button
-
-
+    // Adapted from Django documentation: https://docs.djangoproject.com/en/5.2/howto/csrf/
     function getCSRFToken() {
         const name = 'csrftoken';
         const cookies = document.cookie.split(';');
@@ -42,6 +59,18 @@ document.addEventListener('DOMContentLoaded', function() {
         return '';
     }
 
+    // [AI-GENERATED: ChatGPT: 2025-07-20]
+    /*
+    Notes:
+    I struggled with this part because most gTTS examples only showed how to generate MP3 files locally.
+    I couldn’t find examples for:
+
+    - Generating TTS with gTTS in Django on-the-fly without saving the MP3 files locally.
+    - Streaming it back as a playable audio blob
+    - Playing it in-browser using JavaScript’s Audio() object
+
+    I was stuck in figuring out the entire flow with blob handling and audio playback, and failed to find relevant solutions/code examples to support my understanding.
+    */
     function playTTS(sentenceText) {
         const url = `/api/tts/${storyId}/${languageId}/`;
         console.log("TTS URL:", url);
@@ -69,6 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
+    // [STUDENT-WRITTEN]
     const getTagFromRoot = (jsonRoot, tagName) => {
         if (Array.isArray(jsonRoot) && jsonRoot.length > 0 && Array.isArray(jsonRoot[0])) {
             const tagEntry = jsonRoot[0].find(item => typeof item === 'string' && item.includes(`^${tagName}:`));
@@ -79,6 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return null;
     };
 
+    // [STUDENT-WRITTEN]
     function loadStoryJsonFromHtml() {
         const scriptTag = document.getElementById('ink-json-data');
         if (scriptTag) {
@@ -91,6 +122,20 @@ document.addEventListener('DOMContentLoaded', function() {
         return null;
     }
 
+    // [AI-GENERATED: ChatGPT: 2025-07-20]
+    /*
+    Notes:
+    I used ChatGPT for this part because there are not a lot of InkJS integration examples online.
+    The InkJS documentation is not complete and does not show exactly on how to integrate it to other parts. "https://www.npmjs.com/package/inkjs"
+
+    InkJS show the entire paragraphs at once. However, I wanted to display sentences individually (per user clicks),
+    but I was stuck and could not find any example of these:
+
+    - Splitting story text into individual sentences using regex
+    - Tracking which sentence index to show next
+    - Handling button state changes (Play, Continue, Replay)
+    - Managing scroll behavior and smooth animations
+    */
     function displayNextSentence() {
         choicesContainerDiv.innerHTML = '';
         playButton.style.display = 'block';
@@ -112,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 textSpan.classList.add('story-sentence');
 
                 const audioButton = document.createElement('button');
-                audioButton.textContent = '🔊';
+                audioButton.innerHTML = '<i class="fa fa-volume-up" aria-hidden="true"></i>';
                 audioButton.classList.add('tts-button');
                 audioButton.title = 'Play audio';
                 audioButton.addEventListener('click', ()=>{
@@ -149,6 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // [STUDENT-WRITTEN]
     function handleInkState() {
         if (!story) return;
 
@@ -160,9 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
             playButton.style.display = 'block';
             playButton.disabled = false;
 
-            if (typeof onStoryCompleted === 'function') {
-                onStoryCompleted(storyId, languageId);
-            }
+            onStoryCompleted(storyId, languageId);
 
         } else {
             playButton.textContent = 'Continue';
@@ -171,6 +215,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // [STUDENT-WRITTEN]
     function displayChoices() {
         if (!story) return;
 
@@ -193,6 +238,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // [STUDENT-WRITTEN]
     playButton.addEventListener('click', function() {
         if (playButton.textContent === 'Replay') {
             storyContainerDiv.innerHTML = '';

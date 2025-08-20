@@ -1,3 +1,19 @@
+/*
+Basic CSS style written by Emerentia Novena, with some assistance from ChatGPT
+Filename: welcome.css
+Author: Emerentia Novena
+Date: 2025-08-08
+AI Usage Declaration:
+- This file contains code generated with the help of AI tools.
+- Tools used: ChatGPT
+- Date Generated: 2025-07-19
+- I have reviewed, tested, and understood all AI-generated code.
+- All code was reviewed and analysed by the author.
+
+ChatGPT was used for:
+- Layout structure and style enhancements such as box-shadows, transition and border-radius
+ */
+
 body {
     font-family: 'Inter', sans-serif;
     background-color: #f3f4f6;
