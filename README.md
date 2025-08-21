@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-# tango_with_django_project
-=======
+
 # LanguaTale
 
 ## Project Overview
@@ -55,4 +53,3 @@ LanguaTale is a story-based language learning web application. It allows users t
 | File               | Lines   | Description                   | Learning Outcome                     |
 |--------------------|---------|-------------------------------|------------------------------------|
 | play_story.js       | 51-308  | Interactive story logic        | JS functions, events, JSON handling & gTTS |
->>>>>>> 72b985177a78e42bf178f8ab79acd21f692e586e
