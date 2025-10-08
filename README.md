@@ -9,13 +9,17 @@ LanguaTale is a story-based language learning web application. It allows users t
 
 ## How to Run
 
-1. Open terminal and navigate to the project directory:
+1. Install required packages:
+   ```bash
+   pip install django gTTS
+
+3. Open terminal and navigate to the project directory:
 
    *Note: You need to cd into languatale twice due to the project folder structure.*
 
    ```bash
    cd LanguaTale/languatale/languatale
 
-2. Start Django development server
+4. Start Django development server
    ```bash
    python manage.py runserver
