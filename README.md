@@ -23,3 +23,6 @@ LanguaTale is a story-based language learning web application. It allows users t
 4. Start Django development server
    ```bash
    python manage.py runserver
+
+https://github.com/user-attachments/assets/e1f5b4cb-6ee0-4c55-a5b2-37aabc3f4772
+
